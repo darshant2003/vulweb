@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: auth-service
+
+  datasource:
+    url: ${DB_URL:jdbc:h2:mem:authdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:false}
+          connectiontimeout: 3000
+          timeout: 3000
+          writetimeout: 3000
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS:false}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-to-a-256-bit-secret-key-for-production-use}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+  frontend:
+    base-url: ${FRONTEND_BASE_URL:http://localhost:3000}
+
+  auth:
+    require-email-verification: ${REQUIRE_EMAIL_VERIFICATION:true}
+    verification-token-expiry-hours: ${VERIFICATION_TOKEN_EXPIRY_HOURS:24}
+    password-reset-token-expiry-hours: ${PASSWORD_RESET_TOKEN_EXPIRY_HOURS:1}
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.vulnweb.auth: DEBUG
